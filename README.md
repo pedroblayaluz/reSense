@@ -9,9 +9,9 @@ devtools::install_github('pedroblayaluz/reSense')
 ```
 
     ## 
-    ##      checking for file ‘/private/var/folders/71/1wg468hx51bd08fvhs4c1bw40000gn/T/Rtmp0RquTY/remotes83e04fa887ae/pedroblayaluz-reSense-f66a957/DESCRIPTION’ ...  ✓  checking for file ‘/private/var/folders/71/1wg468hx51bd08fvhs4c1bw40000gn/T/Rtmp0RquTY/remotes83e04fa887ae/pedroblayaluz-reSense-f66a957/DESCRIPTION’ (452ms)
-    ##   ─  preparing ‘reSense’:
-    ##      checking DESCRIPTION meta-information ...  ✓  checking DESCRIPTION meta-information
+    ##      checking for file ‘/private/var/folders/71/1wg468hx51bd08fvhs4c1bw40000gn/T/RtmpoUOdSd/remotes84d7781866d/pedroblayaluz-reSense-0cd89a1/DESCRIPTION’ ...  ✓  checking for file ‘/private/var/folders/71/1wg468hx51bd08fvhs4c1bw40000gn/T/RtmpoUOdSd/remotes84d7781866d/pedroblayaluz-reSense-0cd89a1/DESCRIPTION’ (427ms)
+    ##       ─  preparing ‘reSense’:
+    ##    checking DESCRIPTION meta-information ...  ✓  checking DESCRIPTION meta-information
     ##   ─  checking for LF line-endings in source and make files and shell scripts
     ##   ─  checking for empty or unneeded directories
     ##   ─  building ‘reSense_0.1.0.tar.gz’
