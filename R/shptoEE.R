@@ -6,7 +6,7 @@
 #' @return Google Earth Engine Polygon
 #' @export
 #' @examples
-#' ee.geometry <- shpToEE(shapefile="D:/Dropbox/Science/reSense/data/hudson.shp")
+#' ee.geometry <- shpToEE(shapefile="D:/Folder/shapefile.shp")
 #'
 #'
 #Shapefile to Earth Engine Geometry
