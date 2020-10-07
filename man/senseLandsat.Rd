@@ -10,13 +10,16 @@ senseLandsat(ee.geometry)
 \item{ee.geometry}{Google Earth Engine Object ee.Geometry.Polygon}
 }
 \value{
-a data.frame containing all band values and VIs.
+a data.frame containing all band values and calculated VIs.
 }
 \description{
 This function receives an Earth Engine Polygon, gets Landsat-8
-multispectral images and calculates VIs for that location
+multispectral images and calculates VIs for that location.
+(in development) argument to choose which VIs to calculate and
+date filtering functionalities will soon be added.
+*Some of the VIs (AVI, EVI, SATVI and SI) might have errors and need to be reviewd.
 }
 \examples{
-ee.geometry <- shpToEE(shapefile="D:/Dropbox/Science/reSense/data/hudson.shp")
-hudson.df <- senseLandsat(ee.geometry)
+ee.geometry <- shpToEE(shapefile="D:/Folder/shapefile.shp")
+landsat.data.frame <- senseLandsat(ee.geometry)
 }

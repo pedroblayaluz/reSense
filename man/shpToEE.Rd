@@ -17,7 +17,7 @@ This function converts a Shapefile (.shp) to a
 Google Earth Engine Polygon (ee.Geometry.Polygon)
 }
 \examples{
-ee.geometry <- shpToEE(shapefile="D:/Dropbox/Science/reSense/data/hudson.shp")
+ee.geometry <- shpToEE(shapefile="D:/Folder/shapefile.shp")
 
 
 }
