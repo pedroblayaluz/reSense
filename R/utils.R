@@ -2,8 +2,7 @@
 
 #' This function contains formulas for calculating Vegatation indices from Landsat-8
 #' @param multispectral.image A ee.Image object from which calculations will be made
-#' @NoRd
-#' @keywords internal
+#' @noRd
 cloudbandmath <- function(multispectral.image){
   #AVI
   avi <- multispectral.image$expression('((NIR+65536) * (65536-RED) * (NIR-RED))' ,
@@ -71,8 +70,7 @@ cloudbandmath <- function(multispectral.image){
 
 #' Gets Dates for Landsat Scene Names
 #' @param input Either a data.frame or a list containing Rasters.
-#' @NoRd
-#' @keywords internal
+#' @noRd
 datesFromNames <- function(input){
   if(class(input) == 'list'){
     #Get dates from raster.list names
@@ -89,6 +87,7 @@ datesFromNames <- function(input){
 }
 
 #Extract last letters from strings
+#' @noRd
 lastletters <- function(x, n){
   substr(x, nchar(x)-n+1, nchar(x))
 }
