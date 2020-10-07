@@ -1,13 +1,17 @@
 #' Shapefile to Earth Engine Polygon
 #'
 #' This function receives an Earth Engine Polygon, gets Landsat-8
-#' multispectral images and calculates VIs for that location
+#' multispectral images and calculates VIs for that location.
+#' (in development) argument to choose which VIs to calculate and
+#' date filtering functionalities will soon be added.
+#' *Some of the VIs (AVI, EVI, SATVI and SI) might have errors and need to be reviewd.
+#'
 #' @param ee.geometry Google Earth Engine Object ee.Geometry.Polygon
-#' @return a data.frame containing all band values and VIs.
+#' @return a data.frame containing all band values and calculated VIs.
 #' @export
 #' @examples
-#' ee.geometry <- shpToEE(shapefile="D:/Dropbox/Science/reSense/data/hudson.shp")
-#' hudson.df <- senseLandsat(ee.geometry)
+#' ee.geometry <- shpToEE(shapefile="D:/Folder/shapefile.shp")
+#' landsat.data.frame <- senseLandsat(ee.geometry)
 senseLandsat <- function(ee.geometry){
   #Google Earth Engine ImageCollection
   collection<- ee$ImageCollection("LANDSAT/LC08/C01/T1")$
