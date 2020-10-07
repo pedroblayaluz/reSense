@@ -1,0 +1,17 @@
+Package: reSense
+Type: Package
+Title: A package to make basic Remote Sensing in R easy.
+Version: 0.1.0
+Author: Pedro Blaya Luz
+Maintainer: Pedro Blaya Luz <blaya.luz@gmail.com>
+Description: This package contains functions for easily gathering 
+    multispectral imaging and vegetation indices from Google Earth Engine.
+    Under development, currently only functions for gathering
+    Landsat-8 images and indices are included.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Imports:
+	dplyr,
+	data.table
+Remotes: r-spatial/rgee
