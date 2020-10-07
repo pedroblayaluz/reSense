@@ -2,3 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
+README.Rmd
+demo.R
+.DS_Store
