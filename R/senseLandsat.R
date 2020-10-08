@@ -7,12 +7,19 @@
 #' *Some of the VIs (AVI, EVI, SATVI and SI) might have errors and need to be reviewd.
 #'
 #' @param ee.geometry Google Earth Engine Object ee.Geometry.Polygon
+#' @param start.date A string containing the date (YYYY-MM-DD) at which
+#' to start gathering images, defaults to '2013-01-01' (beginning of Landsat-8 dataset).
+#' @param end.date A string containing the date (YYYY-MM-DD) at which
+#' to end gathering images, defaults to current system date.
+
 #' @return a data.frame containing all band values and calculated VIs.
 #' @export
 #' @examples
 #' ee.geometry <- shpToEE(shapefile="D:/Folder/shapefile.shp")
 #' landsat.data.frame <- senseLandsat(ee.geometry)
-senseLandsat <- function(ee.geometry,start.date='2013-01-01',end.date=as.character(Sys.Date())){
+senseLandsat <- function(ee.geometry,
+                         start.date='2013-01-01',
+                         end.date=as.character(Sys.Date())){
   #Google Earth Engine ImageCollection
   collection<- ee$ImageCollection("LANDSAT/LC08/C01/T1")$
     filterBounds(ee.geometry)$
