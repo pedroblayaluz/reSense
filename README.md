@@ -37,10 +37,10 @@ Now we use the function `shpToEE()` to convert a shapefile into a Google
 Earth Engine Object and store it an object called `ee.geometry`.
 
 ``` r
-ee.geometry <- shpToEE(shapefile="~/Dropbox/Science/reNature/reSenseLocal/earth engine/data/hudson.shp")
+ee.geometry <- shpToEE(shapefile="~/you/reSense/shapefile.shp")
 ```
 
-    ## Reading layer `hudson' from data source `/Users/pedroblayaluz/Dropbox/Science/reNature/reSenseLocal/earth engine/data/hudson.shp' using driver `ESRI Shapefile'
+    ## Reading layer `shapefile' from data source `/Users/you/reSense/shapefile.shp' using driver `ESRI Shapefile'
     ## Simple feature collection with 1 feature and 1 field
     ## geometry type:  POLYGON
     ## dimension:      XY
