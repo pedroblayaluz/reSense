@@ -23,24 +23,24 @@ Here we login to [Google Earth Engine](https://earthengine.google.com/)
 using a gmail account.
 
 ``` r
-ee_Initialize(email='insert.your@gmail.com', drive=T)
+ee_Initialize(email='insert.yours@gmail.com', drive=T)
 ```
 
     ## ── rgee 1.0.6 ─────────────────────────────────────────────────── earthengine-api 0.1.232 ── 
-    ##  ✓ email: random@gmail.com 
+    ##  ✓ email: yours@gmail.com 
     ##  ✓ Google Drive credentials: ✓ Google Drive credentials:  FOUND
     ##  ✓ Initializing Google Earth Engine: ✓ Initializing Google Earth Engine:  DONE!
-    ##  ✓ Earth Engine user: users/random 
+    ##  ✓ Earth Engine user: users/you
     ## ────────────────────────────────────────────────────────────────────────────────────────────
 
 Now we use the function `shpToEE()` to convert a shapefile into a Google
 Earth Engine Object and store it an object called `ee.geometry`.
 
 ``` r
-ee.geometry <- shpToEE(shapefile="~/Dropbox/shapefile.shp")
+ee.geometry <- shpToEE(shapefile="~/Dropbox/Science/reNature/reSenseLocal/earth engine/data/hudson.shp")
 ```
 
-    ## Reading layer `hudson' from data source `/Users/user/Dropbox/shapefile.shp' using driver `ESRI Shapefile'
+    ## Reading layer `hudson' from data source `/Users/pedroblayaluz/Dropbox/Science/reNature/reSenseLocal/earth engine/data/hudson.shp' using driver `ESRI Shapefile'
     ## Simple feature collection with 1 feature and 1 field
     ## geometry type:  POLYGON
     ## dimension:      XY
@@ -52,7 +52,9 @@ gather all available Landsat-8 multispectral images for `ee.geometry`
 and also calculate the respective Vegetation Indices.
 
 ``` r
-landsat.df <- senseLandsat(ee.geometry=ee.geometry)
+landsat.df <- senseLandsat(ee.geometry=ee.geometry,
+                           start.date='2013-01-01',
+                           end.date='2020-01-01')
 ```
 
     ## [1] "|=================================================| 100%"
