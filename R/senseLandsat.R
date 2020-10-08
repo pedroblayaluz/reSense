@@ -12,12 +12,12 @@
 #' @examples
 #' ee.geometry <- shpToEE(shapefile="D:/Folder/shapefile.shp")
 #' landsat.data.frame <- senseLandsat(ee.geometry)
-senseLandsat <- function(ee.geometry){
+senseLandsat <- function(ee.geometry,start.date='2013-01-01',end.date=as.character(Sys.Date())){
   #Google Earth Engine ImageCollection
   collection<- ee$ImageCollection("LANDSAT/LC08/C01/T1")$
     filterBounds(ee.geometry)$
     select('B2','B3')$
-    filterDate('2013-01-01', as.character(Sys.Date()))
+    filterDate(start.date, end.date)
   #Extract infos from ImageCollection
   geom.scale <- collection$first()$projection()$nominalScale()$getInfo() #Get ImageCollection scale
   scene.ids <- collection$aggregate_array('system:id')$getInfo() #Getting scene IDs
