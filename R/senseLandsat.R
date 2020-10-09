@@ -20,7 +20,7 @@
 #' landsat.data.frame <- senseLandsat(ee.geometry)
 #'
 senseLandsat <- function(ee.geometry,
-                         VIs=' ',
+                         VIs=c('bsi','ndmi','ndvi','ndwi','osavi'),
                          start.date='2013-01-01',
                          end.date=as.character(Sys.Date())){
   #Google Earth Engine ImageCollection
