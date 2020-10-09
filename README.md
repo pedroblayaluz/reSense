@@ -27,20 +27,21 @@ ee_Initialize(email='insert.yours@gmail.com', drive=T)
 ```
 
     ## ── rgee 1.0.6 ─────────────────────────────────────────────────── earthengine-api 0.1.232 ── 
-    ##  ✓ email: yours@gmail.com 
+    ##  ✓ email: blaya.luz@gmail.com 
     ##  ✓ Google Drive credentials: ✓ Google Drive credentials:  FOUND
     ##  ✓ Initializing Google Earth Engine: ✓ Initializing Google Earth Engine:  DONE!
-    ##  ✓ Earth Engine user: users/you
+    ##  ✓ Earth Engine user: users/pedroblayaluz 
     ## ────────────────────────────────────────────────────────────────────────────────────────────
 
 Now we use the function `shpToEE()` to convert a shapefile into a Google
-Earth Engine Object and store it an object called `ee.geometry`.
+Earth Engine Object and store it an object called `ee.geometry`. The
+folder containing .shp file should also contain .dbf and .shx files.
 
 ``` r
-ee.geometry <- shpToEE(shapefile="~/you/reSense/shapefile.shp")
+ee.geometry <- shpToEE(shapefile="~/Dropbox/Science/reNature/reSense/data/shapefile.shp")
 ```
 
-    ## Reading layer `shapefile' from data source `/Users/you/reSense/shapefile.shp' using driver `ESRI Shapefile'
+    ## Reading layer `shapefile' from data source `/Users/pedroblayaluz/Dropbox/Science/reNature/reSense/data/shapefile.shp' using driver `ESRI Shapefile'
     ## Simple feature collection with 1 feature and 1 field
     ## geometry type:  POLYGON
     ## dimension:      XY
@@ -49,12 +50,15 @@ ee.geometry <- shpToEE(shapefile="~/you/reSense/shapefile.shp")
 
 Now to the actual functionality of reSense, we use `senseLandsat()` to
 gather all available Landsat-8 multispectral images for `ee.geometry`
-and also calculate the respective Vegetation Indices.
+and also calculate the respective Vegetation Indices. Here we selected
+all available VIs.
 
 ``` r
 landsat.df <- senseLandsat(ee.geometry=ee.geometry,
                            start.date='2013-01-01',
-                           end.date='2020-01-01')
+                           end.date='2020-01-01',
+                           VIs=c('avi', 'bsi', 'evi', 'msavi2', 'ndmi',
+                                 'ndvi', 'ndwi', 'osavi', 'satvi', 'si'))
 ```
 
     ## [1] "|=================================================| 100%"
@@ -64,7 +68,8 @@ Now let’s visualize the data. First some tidying up:
 ``` r
 require(tidyverse)
 landsat.tidy <- landsat.df %>%
-  pivot_longer(cols=16:25, names_to='index',names_ptypes=factor,values_to='value') %>%
+  pivot_longer(cols=16:(dim(landsat.df)[2]-1),
+               names_to='index',names_ptypes=factor,values_to='value') %>%
   select(-starts_with('B')) %>% select(-starts_with('scene'))
 ```
 
@@ -78,7 +83,7 @@ landsat.tidy %>% ggplot(aes(x=date,y=value)) +
   facet_wrap(~index, scales = 'free', ncol=2)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 *\*There might be some errors in AVI, EVI, SATVI and SI due to problems
 including constants in Google Earth Engine equations, needs some
