@@ -11,13 +11,16 @@
 #' to start gathering images, defaults to '2013-01-01' (beginning of Landsat-8 dataset).
 #' @param end.date A string containing the date (YYYY-MM-DD) at which
 #' to end gathering images, defaults to current system date.
-
+#' @param VIs A vector of strings containing which vegetation indices should be calculated.
+#' Currently available VIs are: avi, bsi, evi, msavi2, ndmi, ndvi, ndwi, osavi, satvi, si.
 #' @return a data.frame containing all band values and calculated VIs.
 #' @export
 #' @examples
 #' ee.geometry <- shpToEE(shapefile="D:/Folder/shapefile.shp")
 #' landsat.data.frame <- senseLandsat(ee.geometry)
+#'
 senseLandsat <- function(ee.geometry,
+                         VIs=' ',
                          start.date='2013-01-01',
                          end.date=as.character(Sys.Date())){
   #Google Earth Engine ImageCollection
@@ -33,7 +36,7 @@ senseLandsat <- function(ee.geometry,
   for (i in 1:length(scene.ids)) {
     #Getting image
     scene.image <- ee$Image(scene.ids[[i]])
-    bands.plus.indices <- cloudbandmath(scene.image)
+    bands.plus.indices <- cloudbandmath(scene.image, VIs)
     #Reducing image (in form of dictionary) and getting lon lat
     reduced.image.dictionary <- bands.plus.indices$
       pixelLonLat()$
