@@ -2,7 +2,9 @@ reSense
 ================
 Pedro Blaya Luz
 
-#### Quick demo
+### Quick demo
+
+#### Set up
 
 First we begin by installing the package.
 
@@ -26,12 +28,7 @@ using a gmail account.
 ee_Initialize(email='insert.yours@gmail.com', drive=T)
 ```
 
-    ## ── rgee 1.0.6 ─────────────────────────────────────────────────── earthengine-api 0.1.232 ── 
-    ##  ✓ email: blaya.luz@gmail.com 
-    ##  ✓ Google Drive credentials: ✓ Google Drive credentials:  FOUND
-    ##  ✓ Initializing Google Earth Engine: ✓ Initializing Google Earth Engine:  DONE!
-    ##  ✓ Earth Engine user: users/pedroblayaluz 
-    ## ────────────────────────────────────────────────────────────────────────────────────────────
+#### Gather the data
 
 Now we use the function `shpToEE()` to convert a shapefile into a Google
 Earth Engine Object and store it an object called `ee.geometry`. The
@@ -41,14 +38,7 @@ folder containing .shp file should also contain .dbf and .shx files.
 ee.geometry <- shpToEE(shapefile="~/Dropbox/Science/reNature/reSense/data/shapefile.shp")
 ```
 
-    ## Reading layer `shapefile' from data source `/Users/pedroblayaluz/Dropbox/Science/reNature/reSense/data/shapefile.shp' using driver `ESRI Shapefile'
-    ## Simple feature collection with 1 feature and 1 field
-    ## geometry type:  POLYGON
-    ## dimension:      XY
-    ## bbox:           xmin: -39.97109 ymin: -17.47084 xmax: -39.97007 ymax: -17.46966
-    ## CRS:            NA
-
-Now to the actual functionality of reSense, we use `senseLandsat()` to
+Now to the main functionality of reSense, we use `senseLandsat()` to
 gather all available Landsat-8 multispectral images for `ee.geometry`
 and also calculate the respective Vegetation Indices. Here we selected
 all available VIs.
@@ -63,6 +53,8 @@ landsat.df <- senseLandsat(ee.geometry=ee.geometry,
 
     ## [1] "|=================================================| 100%"
 
+#### Data visualization
+
 Now let’s visualize the data. First some tidying up:
 
 ``` r
@@ -76,6 +68,7 @@ landsat.tidy <- landsat.df %>%
 Plotting Vegetation Indices over time:
 
 ``` r
+require(ggplot2)
 landsat.tidy %>% ggplot(aes(x=date,y=value)) +
   geom_smooth(aes(color=index), size=.5, alpha=0.2, method='gam') +
   geom_jitter(alpha=0.1,size= 0.01)  +
@@ -88,3 +81,42 @@ landsat.tidy %>% ggplot(aes(x=date,y=value)) +
 *\*There might be some errors in AVI, EVI, SATVI and SI due to problems
 including constants in Google Earth Engine equations, needs some
 reviewing.*
+
+#### Animating NDVI over time on a map
+
+Login to Google Cloud Maps Platform and get the map we need (see more in
+[`ggmap`](https://github.com/dkahle/ggmap)).
+
+``` r
+require(ggmap)
+#Login to Google Cloud Platform
+register_google(key='insert tour API key')
+#Get the map
+sat.map <- get_map(c(mean(landsat.df$x), mean(landsat.df$y)),
+                   maptype = 'satellite', zoom=19)
+```
+
+Process the data and create the animated plot using
+[`gganimate`](https://github.com/thomasp85/gganimate) .
+
+``` r
+#Processing data for gif
+landsat.df$year <- substring(landsat.df$date,1,4)
+ndvi.year.mean <- landsat.df %>%
+  group_by(x,y,year) %>%
+  summarise(mean.ndvi = mean(ndvi))
+ndvi.year.mean$year <- as.numeric(ndvi.year.mean$year)
+
+#NDVI Gif
+require(gganimate)
+ndvi.gif <- ggmap(sat.map) +
+  geom_tile(data = ndvi.year.mean , aes(x = x, y = y, fill=mean.ndvi), alpha=0.7,
+            color='black') +
+  scale_fill_continuous(low='beige', high='green') +
+  transition_time(year) +
+  labs(title='NDVI over time: {round(frame_time, 0)}')
+animated.gif <- gganimate::animate(ndvi.gif,fps=30)
+anim_save('animation.gif',animated.gif)
+```
+
+![](animation.gif)
