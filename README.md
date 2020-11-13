@@ -6,8 +6,9 @@ Pedro Blaya Luz
 ## Application
 
 To see an example of the data obtained through this package in
-production check out this **Shiny App**: [reNature - Farm
-monitor](https://pedroblayaluz.shinyapps.io/farm-monitor/)
+production check out this **Shiny App**:
+
+### [reNature - Farm monitor](https://pedroblayaluz.shinyapps.io/farm-monitor/)
 
 ## Quick demo
 
@@ -18,6 +19,20 @@ First we begin by installing the package.
 ``` r
 devtools::install_github('pedroblayaluz/reSense')
 ```
+
+    ## R6       (2.4.1 -> 2.5.0) [CRAN]
+    ## generics (0.0.2 -> 0.1.0) [CRAN]
+    ## 
+    ## The downloaded binary packages are in
+    ##  /var/folders/71/1wg468hx51bd08fvhs4c1bw40000gn/T//RtmpsVTVFZ/downloaded_packages
+    ##      checking for file ‘/private/var/folders/71/1wg468hx51bd08fvhs4c1bw40000gn/T/RtmpsVTVFZ/remotes16c967241132/pedroblayaluz-reSense-d4fc605/DESCRIPTION’ ...  ✓  checking for file ‘/private/var/folders/71/1wg468hx51bd08fvhs4c1bw40000gn/T/RtmpsVTVFZ/remotes16c967241132/pedroblayaluz-reSense-d4fc605/DESCRIPTION’ (374ms)
+    ##   ─  preparing ‘reSense’:
+    ##   ✓  checking DESCRIPTION meta-information
+    ##   ─  checking for LF line-endings in source and make files and shell scripts
+    ##   ─  checking for empty or unneeded directories
+    ##   ─  building ‘reSense_0.1.0.tar.gz’
+    ##      
+    ## 
 
 Then we require both [reSense](https://github.com/pedroblayaluz/reSense)
 and [rgee](https://github.com/r-spatial/rgee), on which reSense relies
