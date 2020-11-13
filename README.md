@@ -1,10 +1,17 @@
 reSense
 ================
 Pedro Blaya Luz
+\| nov-2020
 
-### Quick demo
+## Application
 
-#### Set up
+To see an example of the data obtained through this package in
+production check out this **Shiny App**: [reNature - Farm
+monitor](https://pedroblayaluz.shinyapps.io/farm-monitor/)
+
+## Quick demo
+
+### Set up
 
 First we begin by installing the package.
 
@@ -28,7 +35,7 @@ using a gmail account.
 ee_Initialize(email='insert.yours@gmail.com', drive=T)
 ```
 
-#### Gather the data
+### Gather the data
 
 Now we use the function `shpToEE()` to convert a shapefile into a Google
 Earth Engine Object and store it an object called `ee.geometry`. The
@@ -53,7 +60,7 @@ landsat.df <- senseLandsat(ee.geometry=ee.geometry,
 
     ## [1] "|=================================================| 100%"
 
-#### Data visualization
+### Data visualization
 
 Now let’s visualize the data. First some tidying up:
 
